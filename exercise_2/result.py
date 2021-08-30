@@ -1,15 +1,24 @@
 import os
 import glob
+from sys import platform
+
+
+
+if platform.startswith('linux'):
+    slash ='/'
+elif platform.startswith('win32'):
+    slash = '\\'
 
 path = os.getcwd()
-(dirname, filename) = os.path.split(path)
-dirname1 = os.path.expanduser(dirname)
-home = os.path.expanduser("~")
-dirPhoto = home+'\\Desktop\\Home-Task\\main_folder'
+print(path)
+#(dirname, filename) = os.path.split(path)
+#dirname1 = os.path.expanduser(dirname)
+#home = os.path.expanduser("~")
+dirPhoto = path+slash+'main_folder'
 
 dataList = list(os.walk(dirPhoto))
 pathList = list(set(map(lambda i:dataList[i][0],range(len(dataList)))))
-photoList = list(filter(None,(map(lambda i:glob.glob(pathList[i]+'\\*.jpg'),range(len(pathList))))))
+photoList = list(filter(None,(map(lambda i:glob.glob(pathList[i]+slash+'*.jpg'),range(len(pathList))))))
 photoList = sum(photoList,[])
 #printing photo namprint(len(pathList))
 photoName = list(map(lambda i:os.path.basename(photoList[i]),range(len(photoList))))
